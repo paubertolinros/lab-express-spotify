@@ -5,6 +5,7 @@ const hbs = require('hbs');
 
 // require spotify-web-api-node package here:
 const SpotifyWebApi = require('spotify-web-api-node');
+
 const app = express();
 
 app.set('view engine', 'hbs');
@@ -28,15 +29,24 @@ app.get('/', function (req, res, next) {
   res.render('index');
 });
 
+/* GET contact page. 
+app.get('/contact', function (req, res, next) {
+  res.render('contact');
+});*/
+
 /* GET artist search page. */
 app.get('/artist-search', function (req, res, next) {
-  const query = req.query.artist
+  const { artist } = req.query;
+  //const artist = req.query.artist; FUNCIONA, no entec diferències
+  // entre 1ª i 2ª opció
+  //const artistQuery = req.query.name; EM SURT UNDEFINED
+  console.log('This is artist Query1:', artist)
   spotifyApi
-    .searchArtists(query)
+    .searchArtists(artist)
     .then(data => {
       //console.log('The received data from the API: ', data.body.artists.items);
+      console.log('artistData:', data.body.artists.items)
       const artistData = data.body.artists.items;
-      console.log(`artistData: ${ artistData }`)
       res.render('artist-search-results', { artistData } ) 
     })
     .catch(err => console.log('The error while searching artists occurred: ', err))
@@ -49,22 +59,22 @@ app.get('/albums/:artistId', (req, res, next) => {
     .getArtistAlbums(artistId)
     .then(data => {
       const albumData = data.body.items;
-      console.log(albumData)
-      res.render('albums', { albumData})
+      console.log('AlmbumData:',albumData)
+      res.render('albums', { artistId, albumData})
     }, function(err) {
      console.error(err);
   });
 }); 
 
 /* GET tracks page. */
-app.get('/albums/:artistId/tracks', (req, res, next) => {
-  const { artistId } = req.params;
+app.get('/albums/:artistId/tracks/:albumId', (req, res, next) => {
+  const { artistId, albumId } = req.params;
   spotifyApi
-    .getAlbumTracks(artistId)
+    .getAlbumTracks(albumId)
     .then(data => {
       console.log('The recived:', data.body.items);
       const tracksData = data.body.items
-      res.render('tracks', { tracksData })
+      res.render('tracks', {artistId, albumId, tracksData})
     }, function (err) {
       console.log('Something went wrong!', err);
     });
