@@ -1,7 +1,15 @@
-<h1>{{artist}}</h1>
-{{#each artistData}}
-<p>{{ name }} </p>
-<img src={{images.[0].url}} alt="">
-<button> <a href="/albums/{{id}}">View albums</a></button>
-{{/each}}
+<div class="main-body-container">
+  <div class="main-title-container">
+    <h2 class="main-title">We find this about <span> {{artist}} </span>:</h2>
+  </div>
+  <div class="info-main-container">
+    {{#each artistData}}
+      <div class="image-title-artist">
+        <img class="image" src={{images.[0].url}} alt="{{ name }}">
+        <h3 class= "main-title">{{ name }} </h3>
+        <button class="button"> <a href="/albums/{{id}}">See albums</a></button>
+      </div>
+    {{/each}}
+  </div>
+</div>
 

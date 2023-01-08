@@ -1,4 +1,15 @@
-{{#each tracksData}}
-<p>{{name}}</p>
-<audio controls src={{preview_url}}>This song!</audio>
-{{/each}}
+<div class="main-body-container">
+  <div class="main-title-container">
+    <h2 class="main-title">Tracks</h2>
+  </div>
+  <div class="info-main-container">
+    {{#each tracksData}}
+    <div class="image-title-artist">
+      <h3 class="main-title">{{name}}</h3>
+      <audio class="audio-track" controls src={{preview_url}}>This song!</audio>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+

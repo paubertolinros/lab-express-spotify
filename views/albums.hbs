@@ -1,5 +1,15 @@
-{{#each albumData}}
-  <p> {{name}} </p>
-  <img src={{images.[0].url}} alt="">
-  <button> <a href="/albums/{{../artistId}}/tracks/{{id}}">See tracks</a></button>
-{{/each}}
+<div class="main-body-container">
+  <div class="main-title-container">
+    <h2 class="main-title">Albums {{albumData.artists.[0].name}}</h2>
+  </div>
+  <div class="info-main-container">
+    {{#each albumData}}
+    <div class="image-title-artist">
+      <img class="image" src={{images.[0].url}} alt="{{name}}">
+      <h3 class="main-title"> {{name}} </h3>
+      <button class="button"> <a href="/albums/{{../artistId}}/tracks/{{id}}">See tracks</a></button>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
