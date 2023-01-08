@@ -29,10 +29,6 @@ app.get('/', function (req, res, next) {
   res.render('index');
 });
 
-/* GET contact page. 
-app.get('/contact', function (req, res, next) {
-  res.render('contact');
-});*/
 
 /* GET artist search page. */
 app.get('/artist-search', function (req, res, next) {
@@ -45,7 +41,7 @@ app.get('/artist-search', function (req, res, next) {
     .searchArtists(artist)
     .then(data => {
       //console.log('The received data from the API: ', data.body.artists.items);
-      console.log('artistData:', data.body.artists.items)
+      //console.log(''The recived search !!!!!!!!!!!!!!!!!!!!!:':', data.body.artists.items)
       const artistData = data.body.artists.items;
       res.render('artist-search-results', { artist ,artistData } ) 
     })
@@ -59,8 +55,9 @@ app.get('/albums/:artistId', (req, res, next) => {
     .getArtistAlbums(artistId)
     .then(data => {
       const albumData = data.body.items;
-      console.log(albumData)
-      res.render('albums', { artistId, albumData})
+      const artistName = data.body.items[0].artists;
+      console.log('The recived albums !!!!!!!!!!!!!!!!!!!!!:',data.body.items[0].artists)
+      res.render('albums', { artistId, artistName, albumData})
     }, function(err) {
      console.error(err);
   });
@@ -72,7 +69,7 @@ app.get('/albums/:artistId/tracks/:albumId', (req, res, next) => {
   spotifyApi
     .getAlbumTracks(albumId)
     .then(data => {
-      console.log('The recived:', data.body.items);
+      console.log('The recived tracks:', data.body.items);
       const tracksData = data.body.items
       res.render('tracks', {artistId, albumId, tracksData})
     }, function (err) {

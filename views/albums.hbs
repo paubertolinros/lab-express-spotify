@@ -1,6 +1,8 @@
 <div class="main-body-container">
   <div class="main-title-container">
-    <h2 class="main-title">Albums {{albumData.artists.[0].name}}</h2>
+    {{#each artistName}}
+    <h2 class="main-title">Albums <span>{{name}}</span></h2>
+    {{/each}}
   </div>
   <div class="info-main-container">
     {{#each albumData}}
